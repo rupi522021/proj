@@ -1,0 +1,37 @@
+import './css/GalamStyle.css';
+import React, { Component } from 'react'
+import Header from './components/Header';
+import LogInScr from './components/LogInScr';
+import Footer from './components/Footer';
+import ChangePasswordScr from './components/ChangePasswordScr';
+import Content from './components/Content';
+
+export default class Appa extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      logedIn: true,
+      userName: 'User',
+      MustChangePassword: false
+    };
+  }
+
+  LogOut = () => {
+    //Add
+    console.log("log out");
+    //this.setState({logedIn: false});
+  }
+
+  render() {
+    return (
+      <div>
+        <Header logedIn={this.state.logedIn}
+          MustChangePassword={this.state.MustChangePassword}
+          userName={this.state.userName}
+          LogOut={this.LogOut} />
+        {(this.state.logedIn ? (this.state.MustChangePassword ? <ChangePasswordScr /> : <Content />) : <LogInScr />)}
+        <Footer />
+      </div>
+    )
+  }
+}

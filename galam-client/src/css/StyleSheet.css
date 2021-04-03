@@ -1,0 +1,773 @@
+﻿/*@import url("materialize.min.css");*/
+.bi-house-door-fill {
+    height: 1.5em;
+    width: 1.5em;
+}
+
+#butEditFork {
+    margin-top: 0px;
+    margin-left:10px;
+}
+
+#Layer_1 {
+    height: 2em;
+    /*width: 1em;*/
+}
+
+.bigTbS {
+    width: 50%;
+    margin-top: 3vh;
+}
+
+    .bigTbS tr {
+        height: 2em;
+    }
+
+    tbody.tbodySpanTxtSize > tr > td > span {
+        font-size: 0.8em;
+    }
+
+/* htmp {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0px;
+    font-size: 2vh;
+    direction: rtl;
+} */
+/* #head {
+    height: 10vh;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-bottom: 2px double black;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+}
+
+.head1 {
+    border-radius: 0px 0px 4px 4px;
+}
+
+.head2 {
+} */
+
+/* #main {
+    overflow: auto;
+} */
+
+/* .main1 {
+    height: 86vh;
+    display: flex;
+} */
+
+.main2 {
+    height: 81vh;
+    direction: ltr;
+}
+
+.main3 {
+    height: 77vh;
+    direction: ltr;
+    display:flex;
+}
+
+.main4 {
+    height: 81vh;
+    direction: ltr;
+    padding: 20px;
+}
+
+/* #menu {
+    height: 5vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-bottom: 2px double black;
+    border-radius: 0px 0px 4px 4px;
+    margin: 0 auto;
+    font-size: 1em;
+    padding-right:10px;
+}
+
+    #menu > div {
+        float: right;
+        padding: 7px 5px 0px 5px;
+        height: 100%;
+    }
+        #menu > div > a, .divFM > div > a, a {
+            padding-left: 20px;
+            padding-right: 20px;
+            color: #4676D7;
+            text-decoration: none;
+        }
+        #menu > div > a {
+            float: right;
+        }
+            #menu > div > a:hover, .divFM > div > a:hover, a:hover {
+                color: #1d49aa;
+                text-decoration: none;
+            }
+            #menu > div > a:focus, .divFM > div > a:focus, a:focus {
+                color: #333;
+                outline: none;
+                text-decoration: none;
+            }
+            #menu > div > a:active, .divFM > div > a:active, a:active {
+                outline: none;
+                color: #1a2f69;
+            } */
+
+.divFM > div {
+    margin-top: 30px;
+}
+
+/* #footer {
+    height: 4vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-top: 2px double black;
+    border-radius: 4px 4px 0px 0px;
+    text-align: center;
+} */
+
+/* #mytable {
+    height:100%;
+    display: table;
+    text-align:left;
+}
+
+#logo {
+    height: 70%;
+    display: table-cell;
+    vertical-align: middle;
+    margin: auto auto auto 15px;
+} */
+
+/* #brand {
+    margin: 0;
+    padding: 0px 0 0px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+    font-size: 3em;
+    font-weight: 700;
+    color: rgb(121, 186, 64);
+    text-align: center;
+    height: 100%;
+} */
+
+#OutForm {
+    margin: auto;
+    padding: 15px 30px;
+    background-color: white;
+}
+
+#InForm {
+    display:grid;
+    grid-template-columns: 50% 50%;
+}
+
+    #InForm input {
+        margin-top: 20px;
+    }
+
+    label {
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 20px;
+    }
+
+/* .blueButton {
+    border: 0;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    color: #fff;
+    padding: 0.4em 0.8em;
+    font-size: 1em;
+    outline: none;
+    margin: auto;
+    margin-top:20px;
+}
+
+.blueButton {
+    background: #4676D7;
+}
+
+    .blueButton:hover {
+        background: #1d49aa;
+    }
+
+    .blueButton:focus {
+        outline: none;
+    }
+
+    .blueButton:active {
+        outline: none;
+        background: #1a2f69;
+    } */
+
+/* .cntTxt {
+    text-align: center;
+} */
+
+.marAuto {
+    margin: auto;
+}
+
+/*input{
+    margin-top: 20px;
+}*/
+
+.txtForm{
+    width:150px;
+}
+
+/* #headR {
+    text-align: right;
+    padding-right: 15px;
+    padding-top: 5px;
+} */
+
+#butExit {
+    margin-top: 7px;
+    padding: 0.2em 0.8em;
+}
+
+#butS {
+    margin-top: 7px;
+    padding: 0.2em 0.8em;
+}
+
+/* .circle {
+    border-radius: 50%;
+    border: 2px solid black;
+    border: 2px solid green;
+    display: inline-block;
+    color: rgb(121, 186, 64);
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;
+    width: 2em;
+    margin-top: -2px;
+} */
+
+#menu > div > a.colorRed, .red {
+    color: red;
+}
+
+.invMinus {
+    color: red;
+    font-weight: bold;
+}
+
+/* .curentTab {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#menu > div.curentTab > a {
+    color: #ff0000;
+    color: #459a49;
+}
+
+    #menu > div.curentTab > a:hover {
+        color: #ca1919;
+        color: green;
+    }
+
+    #menu > div.curentTab > a:focus {
+        color: black;
+        color: #024202;
+    }
+
+    #menu > div.curentTab > a:active {
+        outline: none;
+    } */
+
+/* table {
+    margin-left: auto;
+    margin-right: auto;
+    direction: ltr;
+}
+
+th, td {
+    border: 2px double black;
+    max-width: 180px;
+    min-width: 50px;
+    height: 1.5em;
+    font-size: 0.8em;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+th{
+    background-color: rgb(189,215,238);
+    font-weight:400;
+} */
+
+td {
+    /*background-color: rgba(0, 0, 0, 0.15);*/
+}
+
+/* .noBorder {
+    border: none;
+}
+
+    .noBorder > input {
+        margin:auto;
+    }
+td.noBorder, th.noBorder, .canEdit {
+    background-color: white;
+} */
+
+.canEdit {
+    /*background-color:#c3f3ad;*/
+}
+
+    /* .divTb {
+        display: flex;
+        padding: 20px;
+        overflow: auto;
+        width: 100%;
+        text-align: center;
+    } */
+
+/* .divToolbar {
+    display:flex;
+    width: 100%;
+    margin-left: 20px;
+    margin: 0px auto 0px auto;
+    height: 4vh;
+    direction: ltr;
+    border-bottom: 1px double black;
+    border-radius: 0px 0px 4px 4px;
+}
+
+.divToolbarImg {
+    margin: 0px auto 0px auto;
+}
+
+    .divToolbarImg > img {
+        margin: 0px 10px 0px 10px;
+        height: 1.5em;
+        cursor: pointer;
+    } */
+
+.clickabelImg {
+    /*margin: 0px 10px 0px 10px;*/
+    height: 1.5em;
+    cursor: pointer;
+}
+
+.editToolbarImg > img {
+    margin: auto 10px auto 10px;
+    height: 2em;
+    cursor: pointer;
+}
+
+.tdHRow {
+    background-color: rgba(0, 0, 0, 0.15);
+    /*background-color: rgb(255,218,101);*/
+    width: 150px;
+}
+
+.tdHRowT {
+    background-color: rgb(146,208,80);
+}
+
+.TRow {
+    border-top: 3px solid black;
+}
+.main2 > div {
+    display: flex;
+}
+.main2 > div > img {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:50px;
+    direction: ltr;
+    height: 300px;
+}
+
+select {
+    margin-top: 2px;
+    margin-left: 10px;
+    /*margin-right:150px;*/
+    min-width: 100px;
+}
+
+    select.input-group-text, select.form-control {
+        margin-top: 0px;
+        margin-left: 0px;
+    }
+
+    select.form-control {
+        /*margin-right: 20px;*/
+    }
+
+        select.input-group-text {
+            margin-left: 20px;
+        }
+
+        .divToolbar > div > select {
+            margin-right: 150px;
+        }
+
+.bgYellow {
+    background-color: yellow;
+}
+
+/* .inLineImg {
+    height: 1.5em;
+    margin: 0px 5px 0px 5px;
+    cursor: pointer;
+} */
+
+/* h1{
+    margin: auto;
+} */
+
+p{
+    direction:rtl;
+    margin:auto;
+}
+
+hr {
+    border: 1px solid black;
+    margin-right: 20%;
+    margin-left: 20%;
+    margin-top: 30px;
+}
+
+#main > .txtDiv {
+    margin-top: 30px;
+    display: block;
+    text-align: center;
+}
+
+.divFM {
+    width: 40%;
+    padding: 20px;
+    overflow: auto;
+}
+
+.menuTb{
+    margin-top:20px;
+}
+
+    .menuTb th {
+        background-color: rgb(146,208,80);
+    }
+
+    /* .thSort {
+        cursor: pointer;
+    } */
+
+.filter {
+    height: 100%;
+}
+
+#forDate {
+    margin-right: 20px;
+    direction: rtl;
+}
+
+#dtp {
+    margin-top: 2px;
+    border-radius: 0.25rem;
+    /*height: 90%;*/
+    margin-left: 5px;
+}
+
+.inTdImg {
+    height: 100%;
+}
+
+/*modal*/
+
+/* #onallout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(0,0,0,0.2);
+    vertical-align: middle;
+    overflow: auto;
+}
+
+.onalloin {
+    margin: 25vh auto;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 15px 30px;
+    background-color: white;
+    border: 4px double;
+    width: 40%;
+    text-align: center;
+}
+
+.w50 {
+    width: 50%;
+}
+
+#xx, .xx {
+    font-family: "Montserrat", sans-serif;
+    color: rgb(212,75,56);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    #xx:hover, .xx:hover {
+        color: rgb(232,95,76);
+        cursor: pointer;
+    }
+
+        #xx:focus, .xx:focus {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #xx:active, .xx:active {
+            outline: none;
+            color: rgb(152,15,0);
+        }
+
+.xx {
+    margin-left: 20px;
+} */
+
+.divTxtLeft {
+    text-align: left;
+}
+
+.divTxtRight {
+    text-align: right;
+}
+
+    .divTxtRight > select {
+        margin-right: 0px;
+        margin-top: 1em;
+    }
+
+#InFormQ {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    direction:ltr;
+}
+
+.txtQ {
+    width: 80px;
+    margin-top: 5px;
+}
+
+/* .cntTxt > button {
+    margin-left: 10px;
+    margin-right: 10px;
+    width:100px;
+} */
+
+#clearDateCnt, #clearDateCnt1, #clearDateCnt2 {
+    visibility: hidden;
+}
+
+a {
+    cursor: pointer;
+}
+
+button.simulationButton {
+    width: 250px;
+    margin-top: 0px;
+}
+
+.green{
+    color:green;
+}
+
+.imgX {
+    height: 1.5em;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.rtlCl {
+    direction: rtl;
+}
+
+.chRool {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.GridDiv3 {
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    /*direction: ltr;*/
+}
+
+.Grid5050 {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.Grid3070 {
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.panel-title {
+    text-align: right;
+    border: 2px solid black;
+}
+
+h3 {
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.container {
+    max-width: 970px;
+}
+
+div[class*='col-'] {
+    padding: 0 30px;
+}
+
+.wrap {
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+}
+
+a:focus,
+a:hover,
+a:active {
+    outline: 0;
+    text-decoration: none;
+}
+
+.fixW {
+    width: 150px;
+}
+
+.panel {
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #fff;
+    background: none;
+    box-shadow: none;
+}
+
+    .panel:last-child {
+        border-bottom: none;
+    }
+
+.panel-group > .panel:first-child .panel-heading {
+    border-radius: 4px 4px 0 0;
+}
+
+.panel-group .panel {
+    border-radius: 0;
+}
+
+    .panel-group .panel + .panel {
+        margin-top: 0;
+    }
+
+.panel-heading {
+    background-color: #009688;
+    border-radius: 0;
+    border: none;
+    color: #fff;
+    padding: 0;
+}
+
+.panel-title a {
+    display: block;
+    color: #fff;
+    padding: 15px;
+    padding-right: 30px;
+    position: relative;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.panel-body {
+    background: #fff;
+    direction:rtl;
+    text-align:right;
+    margin: 5px 20px;
+}
+
+.panel:last-child .panel-body {
+    border-radius: 0 0 4px 4px;
+}
+
+.panel:last-child .panel-heading {
+    border-radius: 0 0 4px 4px;
+    transition: border-radius 0.3s linear 0.2s;
+}
+
+    .panel:last-child .panel-heading.active {
+        border-radius: 0;
+        transition: border-radius linear 0s;
+    }
+/* #bs-collapse icon scale option */
+
+/*@import url("http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");*/
+
+.panel-heading a:before {
+    content: '\e147';
+    position: absolute;
+    font-family: 'Material Icons';
+    right: 5px;
+    top: 10px;
+    font-size: 24px;
+    transition: all 0.5s;
+    transform: scale(1);
+}
+
+.panel-heading.active a:before {
+    content: ' ';
+    transition: all 0.5s;
+    transform: scale(0);
+}
+
+#bs-collapse .panel-heading a:after {
+    content: ' ';
+    font-size: 24px;
+    position: absolute;
+    font-family: 'Material Icons';
+    right: 5px;
+    top: 10px;
+    transform: scale(0);
+    transition: all 0.5s;
+}
+
+#bs-collapse .panel-heading.active a:after {
+    content: '\e909';
+    transform: scale(1);
+    transition: all 0.5s;
+}
+/* #accordion rotate icon option */
+
+#accordion .panel-heading a:before {
+    content: '\e316';
+    font-size: 24px;
+    position: absolute;
+    font-family: 'Material Icons';
+    right: 5px;
+    top: 10px;
+    transform: rotate(180deg);
+    transition: all 0.5s;
+}
+
+#accordion .panel-heading.active a:before {
+    transform: rotate(0deg);
+    transition: all 0.5s;
+}
