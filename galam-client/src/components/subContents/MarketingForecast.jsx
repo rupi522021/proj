@@ -83,12 +83,13 @@ export default class MarketingForecast extends Component {
   refresh = () => {
     let tmp = new Date(this.state.selectedDate);
     let br;
+    let br2 = [];
     let a;
     if (tmp != null && tmp != "Invalid Date") {
       br = tmp.toString().split(" ");
-      br[6] = "GMT+0000";
-      br[7] = "(GMT+0000)";
-      a = new Date(br.join(" "));
+      for (let i = 0; i <= 5; i++) { br2.push(br[i]); }
+      br2[5] = "GMT+0000";
+      a = new Date(br2.join(" "));
     }
     let api = `${apiUrl}/Forecast/?year=${this.state.yearValue}${(tmp == null || tmp == "Invalid Date" ? "" : `&fDate=${a.toISOString().split(".")[0]}`)}`;
     fetchCall('GET', api, '', this.refreshSuccess, this.getForecastError, this.props.logedInUser.Token, this.props.logedInUser.UserName);
@@ -103,12 +104,13 @@ export default class MarketingForecast extends Component {
     if (e == "Invalid Date") this.setState({ selectedDate: e });
     else {
       let br;
+      let br2 = [];
       let a;
       if (e != null) {
         br = e.toString().split(" ");
-        br[6] = "GMT+0000";
-        br[7] = "(GMT+0000)";
-        a = new Date(br.join(" "));
+        for (let i = 0; i <= 5; i++) { br2.push(br[i]); }
+        br2[5] = "GMT+0000";
+        a = new Date(br2.join(" "));
       }
       let api = `${apiUrl}/Forecast/?year=${this.state.yearValue}${e == null ? "" : `&fDate=${a.toISOString().split(".")[0]}`}`;
       fetchCall('GET', api, '', this.getForecastSuccess, this.getForecastError, this.props.logedInUser.Token, this.props.logedInUser.UserName);
