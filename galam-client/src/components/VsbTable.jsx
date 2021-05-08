@@ -21,7 +21,7 @@ export default class VsbTable extends Component {
     }
     if (this.props.defaultSortBy != undefined) this.columns.forEach(item => { if (item.name == this.props.defaultSortBy) this.state.sortedBy = item.data });
     else this.state.sortedBy = this.columns[0].data;
-    this.dataSort(this.props.data, this.state.sortedBy, this.state.sortUpDown == "down");
+    if (this.sortable) this.dataSort(this.props.data, this.state.sortedBy, this.state.sortUpDown == "down");
   }
 
   filterChange = (e) => { this.setState({ filterValue: e.target.value }); }
@@ -77,7 +77,7 @@ export default class VsbTable extends Component {
   }
 
   render() {
-    this.dataSort(this.props.data, this.state.sortedBy, this.state.sortUpDown == "down");
+    if (this.sortable) this.dataSort(this.props.data, this.state.sortedBy, this.state.sortUpDown == "down");
     return (
       <div className={`divTb${this.props.divClass != undefined ? ` ${this.props.divClass}` : ""}`}>
         <table className="stickyCol">

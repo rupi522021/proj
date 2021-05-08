@@ -17,7 +17,6 @@ export default class Content extends Component {
 
   constructor(props) {
     super(props);
-    //this.Permissions = this.props.logedInUser.Permissions;
     this.scrDict = {
       "HomePage": HomePage,
       "MarketingForecast": MarketingForecast,
@@ -31,18 +30,24 @@ export default class Content extends Component {
     };
     this.state = {
       curentPage: "HomePage",
-      //curentPage: "UserManagement"
     }
   };
 
   MovePage = (e) => { this.setState({ curentPage: e.currentTarget.dataset.page }); }
 
+  ChMenuNumOfApprovals = () => { }
+
+  ChangeMenuNumOfApprovals = (data) => { this.ChMenuNumOfApprovals(data); }
+
+  ReassignChangeMenuNumOfApprovals = (func) => { this.ChMenuNumOfApprovals = func; }
+
   render() {
     const Page = this.scrDict[this.state.curentPage];
     return (
       <div className="contentWoMenu">
-        <MenuComponent logedInUser={this.props.logedInUser} onClickMenu={this.MovePage} curentPage={this.state.curentPage} />
-        <Page logedInUser={this.props.logedInUser} />
+        <MenuComponent logedInUser={this.props.logedInUser} onClickMenu={this.MovePage} curentPage={this.state.curentPage}
+          ReassignChangeMenuNumOfApprovals={this.ReassignChangeMenuNumOfApprovals} />
+        <Page logedInUser={this.props.logedInUser} ChangeMenuNumOfApprovals={this.ChangeMenuNumOfApprovals} />
       </div>
     )
   }

@@ -12,6 +12,12 @@ export default class MenuComponent extends Component {
       ApprovalsCount: 0,
     }
   }
+
+  componentDidMount() {
+    this.props.ReassignChangeMenuNumOfApprovals(this.numOfApprovalsSuccess);
+    this.numOfApprovalsGet();
+  }
+
   componentDidUpdate() { this.numOfApprovalsGet(); }
 
   numOfApprovalsGet = () => {

@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select, } from '@material-ui/core';
 import React, { Component } from 'react'
-import { MsgContext, apiUrl, fetchCall } from '../../consts/MainConst';
+import { MsgContext, apiUrl, fetchCall, GMT0 } from '../../consts/MainConst';
 import VsbTable from '../VsbTable';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDateTimePicker } from '@material-ui/pickers';
@@ -82,17 +82,11 @@ export default class MarketingForecast extends Component {
 
   refresh = () => {
     let tmp = new Date(this.state.selectedDate);
-    let br;
-    let br2 = [];
-    let a;
-    if (tmp != null && tmp != "Invalid Date") {
-      br = tmp.toString().split(" ");
-      for (let i = 0; i <= 5; i++) { br2.push(br[i]); }
-      br2[5] = "GMT+0000";
-      a = new Date(br2.join(" "));
+    if (tmp == "Invalid Date") this.MessageShow("תאריך לא תקין", 0);
+    else {
+      let api = `${apiUrl}/Forecast/?year=${this.state.yearValue}${(tmp == null || tmp == "Invalid Date" ? "" : `&fDate=${GMT0(tmp).toISOString().split(".")[0]}`)}`;
+      fetchCall('GET', api, '', this.refreshSuccess, this.getForecastError, this.props.logedInUser.Token, this.props.logedInUser.UserName);
     }
-    let api = `${apiUrl}/Forecast/?year=${this.state.yearValue}${(tmp == null || tmp == "Invalid Date" ? "" : `&fDate=${a.toISOString().split(".")[0]}`)}`;
-    fetchCall('GET', api, '', this.refreshSuccess, this.getForecastError, this.props.logedInUser.Token, this.props.logedInUser.UserName);
   }
 
   refreshSuccess = (data) => {
@@ -103,16 +97,7 @@ export default class MarketingForecast extends Component {
   dateTimePickerChange = (e) => {
     if (e == "Invalid Date") this.setState({ selectedDate: e });
     else {
-      let br;
-      let br2 = [];
-      let a;
-      if (e != null) {
-        br = e.toString().split(" ");
-        for (let i = 0; i <= 5; i++) { br2.push(br[i]); }
-        br2[5] = "GMT+0000";
-        a = new Date(br2.join(" "));
-      }
-      let api = `${apiUrl}/Forecast/?year=${this.state.yearValue}${e == null ? "" : `&fDate=${a.toISOString().split(".")[0]}`}`;
+      let api = `${apiUrl}/Forecast/?year=${this.state.yearValue}${e == null ? "" : `&fDate=${GMT0(e).toISOString().split(".")[0]}`}`;
       fetchCall('GET', api, '', this.getForecastSuccess, this.getForecastError, this.props.logedInUser.Token, this.props.logedInUser.UserName);
     }
   }

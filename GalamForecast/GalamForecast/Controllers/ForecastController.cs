@@ -190,5 +190,21 @@ namespace GalamForecast.Controllers
                 return Content(HttpStatusCode.InternalServerError, new { Code = "ServerError", Message = "שגיאה בשרת" });
             }
         }
+
+        [HttpGet]
+        [Route("api/ForecastSum/")]
+        public IHttpActionResult GetForecastSum()
+        {
+            Users user;
+            try { user = Users.Authentication(Request); }
+            catch (Exception ex) { return Content(Results.AuthenticationExResult(ex).Status, Results.AuthenticationExResult(ex).ReturnedObj); }
+
+            try
+            {
+                List<ForecastSum> result = ForecastSum.GetForecastSum();
+                return Content(HttpStatusCode.OK, new { Code = "OK", Message = "נשלחה תשובה", ForecastSum = result });
+            }
+            catch { return Content(HttpStatusCode.InternalServerError, new { Code = "ServerError", Message = "שגיאה בשרת" }); }
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace GalamForecast.Models.DAL
 {
     public class DBServices
     {
-        private static SqlConnection connect(string conString = "DBConnectionString")
+        private static SqlConnection Connect(string conString = "DBConnectionString")
         {
             try {
                 string cStr = WebConfigurationManager.ConnectionStrings[conString].ConnectionString;
@@ -22,17 +22,19 @@ namespace GalamForecast.Models.DAL
 
         private static SqlCommand CreateCommand(string CommandSTR, SqlConnection con, int timeout = 10)
         {
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandText = CommandSTR;
-            cmd.CommandTimeout = timeout;
-            cmd.CommandType = System.Data.CommandType.Text;
+            SqlCommand cmd = new SqlCommand
+            {
+                Connection = con,
+                CommandText = CommandSTR,
+                CommandTimeout = timeout,
+                CommandType = System.Data.CommandType.Text
+            };
             return cmd;
         }
 
         public static Users LogIn(string UserName, string Password)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
             try
             {
                 if (UserName == "SYSTEM") throw new Exception("UserNotFound");
@@ -68,7 +70,7 @@ namespace GalamForecast.Models.DAL
 
         public static List<Users> GetAllUsers()
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
             List<Users> result = new List<Users>();
 
             try
@@ -110,7 +112,7 @@ namespace GalamForecast.Models.DAL
 
         public static bool LockUser(string UserName)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -124,7 +126,7 @@ namespace GalamForecast.Models.DAL
 
         public static bool UnLockUser(string UserName)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -139,7 +141,7 @@ namespace GalamForecast.Models.DAL
 
         public static bool PassZero(Users user)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -153,7 +155,7 @@ namespace GalamForecast.Models.DAL
 
         public static List<PermissionTypes> GetAllPermissionTypes()
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -172,7 +174,7 @@ namespace GalamForecast.Models.DAL
 
         public static List<UserTypes> GetAllUserTypes()
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -200,7 +202,7 @@ namespace GalamForecast.Models.DAL
 
         public static bool RoolPost(Users user)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -234,7 +236,7 @@ namespace GalamForecast.Models.DAL
 
         public static List<int> GetAllPeople()
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -251,7 +253,7 @@ namespace GalamForecast.Models.DAL
 
         public static Users AddUser(Users user)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -301,7 +303,7 @@ namespace GalamForecast.Models.DAL
 
         public static bool ChangePassword(string UserName, string OldPassword, string NewPassword)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -320,13 +322,15 @@ namespace GalamForecast.Models.DAL
             finally { if (con != null) con.Close(); }
         }
 
-        public static List<Periods> GetAllPeriods()
+        public static List<Periods> GetAllPeriods(int year = 0)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
+            string whereStr = "";
+            if (year != 0) whereStr = $" WHERE yearP = {year}";
 
             try
             {
-                string str = $"SELECT * FROM tblPeriods";
+                string str = $"SELECT * FROM tblPeriods{whereStr}";
                 SqlCommand cmd = CreateCommand(str, con);
                 SqlDataReader dr = cmd.ExecuteReader();
                 List<Periods> result = new List<Periods>();
@@ -355,7 +359,7 @@ namespace GalamForecast.Models.DAL
 
         public static int AddPeriods(List<Periods> periodsToAdd)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -369,7 +373,6 @@ namespace GalamForecast.Models.DAL
                 }
                 str += "IF @@ERROR = 0 COMMIT ELSE ROLLBACK";
                 SqlCommand cmd = CreateCommand(str, con);
-                //return cmd.ExecuteNonQuery() > 0;
                 return cmd.ExecuteNonQuery();
             }
             catch (Exception ex) { throw ex; }
@@ -378,7 +381,7 @@ namespace GalamForecast.Models.DAL
 
         public static Dictionary<string, Countries> GetCountries()
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
@@ -398,7 +401,7 @@ namespace GalamForecast.Models.DAL
 
         public static DbUpdates AddUpdateCountries(List<Countries> countriesToAdd, List<Countries> countriesToUpdate)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -436,7 +439,7 @@ namespace GalamForecast.Models.DAL
 
         public static Dictionary<int, Person> GetPeople()
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
@@ -456,7 +459,7 @@ namespace GalamForecast.Models.DAL
 
         public static DbUpdates AddUpdatePeople(List<Person> ToAdd, List<Person> ToUpdate)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -494,7 +497,7 @@ namespace GalamForecast.Models.DAL
 
         public static Dictionary<int, SaleMenagers> GetSaleMenagers()
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
@@ -514,7 +517,7 @@ namespace GalamForecast.Models.DAL
 
         public static DbUpdates AddUpdateSaleMenagers(List<SaleMenagers> ToAdd, List<SaleMenagers> ToUpdate)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -552,7 +555,7 @@ namespace GalamForecast.Models.DAL
 
         public static Dictionary<int, Customers> GetCustomers()
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
@@ -577,7 +580,7 @@ namespace GalamForecast.Models.DAL
 
         public static Customers GetCustomer(int customerNumber)
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
@@ -599,7 +602,7 @@ namespace GalamForecast.Models.DAL
 
         public static DbUpdates AddUpdateCustomers(List<Customers> ToAdd, List<Customers> ToUpdate)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -643,7 +646,7 @@ namespace GalamForecast.Models.DAL
 
         public static Dictionary<string, Items> GetItems()
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
@@ -663,7 +666,7 @@ namespace GalamForecast.Models.DAL
 
         public static DbUpdates AddUpdateItems(List<Items> ToAdd, List<Items> ToUpdate)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -699,73 +702,13 @@ namespace GalamForecast.Models.DAL
             finally { if (con != null) con.Close(); }
         }
 
-        //public static List<SaleRows> GetSaleRows()
-        //{
-        //    SqlConnection con = connect();
-
-        //    try
-        //    {
-        //        string str = $"SELECT * FROM tblSales";
-        //        SqlCommand cmd = CreateCommand(str, con);
-        //        SqlDataReader dr = cmd.ExecuteReader();
-        //        List<SaleRows> result = new List<SaleRows>();
-        //        while (dr.Read())
-        //        {
-        //            result.Add(new SaleRows(Convert.ToInt32(dr["yearP"]), Convert.ToInt32(dr["quarterP"]), Convert.ToString(dr["itemNumber"]), Convert.ToInt32(dr["customerNumber"]), Convert.ToDouble(dr["salesQty"])));
-        //        }
-        //        return result;
-        //    }
-        //    catch (Exception ex) { throw ex; }
-        //    finally { if (con != null) con.Close(); }
-        //}
-
-        //public static DbUpdates AddUpdateSaleRows(List<SaleRows> ToAdd, List<SaleRows> ToUpdate)
-        //{
-        //    SqlConnection con = connect("DBConnectionString");
-
-        //    try
-        //    {
-        //        SqlCommand cmd;
-        //        string str = "";
-        //        int numOfErrors = 0;
-        //        int numOfGoods = 0;
-        //        for (int i = 0; i < ToAdd.Count; i++)
-        //        {
-        //            str = $"insert into tblSales (itemNumber, yearP, quarterP, customerNumber, salesQty)" +
-        //                $" values ('{ToAdd[i].ItemNumber}', {ToAdd[i].Year}, {ToAdd[i].Quarter}, {ToAdd[i].CustomerNumber}, {ToAdd[i].Qty.ToString().Replace(",", ".")})";
-        //            cmd = CreateCommand(str, con);
-        //            try
-        //            {
-        //                if (cmd.ExecuteNonQuery() > 0) numOfGoods++;
-        //                else numOfErrors++;
-        //            }
-        //            catch { numOfErrors++; }
-        //        }
-        //        for (int i = 0; i < ToUpdate.Count; i++)
-        //        {
-        //            str = $"UPDATE tblSales SET salesQty = '{ToUpdate[i].Qty.ToString().Replace(",", ".")}'" +
-        //                $" WHERE itemNumber = '{ToUpdate[i].ItemNumber}' AND yearP = {ToUpdate[i].Year} AND yearP = {ToUpdate[i].Quarter} AND yearP = {ToUpdate[i].CustomerNumber}";
-        //            cmd = CreateCommand(str, con);
-        //            try
-        //            {
-        //                if (cmd.ExecuteNonQuery() > 0) numOfGoods++;
-        //                else numOfErrors++;
-        //            }
-        //            catch { numOfErrors++; }
-        //        }
-        //        return new DbUpdates(numOfErrors, numOfGoods);
-        //    }
-        //    catch (Exception ex) { throw ex; }
-        //    finally { if (con != null) con.Close(); }
-        //}
-
         public static int GetMaxSalePeriod()
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
-                string str = $"select isnull(max((yearP - 2013) * 4 + quarterP), 0) as maxPeriod from tblSales";
+                string str = $"select isnull(max((yearP - {Periods.FirstYear}) * 4 + quarterP), 0) as maxPeriod from tblSales";
                 SqlCommand cmd = CreateCommand(str, con);
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
@@ -775,7 +718,7 @@ namespace GalamForecast.Models.DAL
 
         public static DbUpdates AddUpdateSaleRows(List<SaleRows> ToAdd)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -796,7 +739,7 @@ namespace GalamForecast.Models.DAL
 
         public static List<ShipTos> GetShipTos()
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
@@ -827,7 +770,7 @@ namespace GalamForecast.Models.DAL
 
         public static bool UpdateShipToActive(ShipTos ShipTo)
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
@@ -846,7 +789,7 @@ namespace GalamForecast.Models.DAL
 
         public static ShipTos AddShipTo(ShipTos ShipTo)
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
@@ -891,7 +834,7 @@ namespace GalamForecast.Models.DAL
 
         public static int GetMaxAbsWeekNumber()
         {
-            SqlConnection con = connect();
+            SqlConnection con = Connect();
 
             try
             {
@@ -905,7 +848,7 @@ namespace GalamForecast.Models.DAL
 
         public static DbUpdates AddWeeks(List<Weeks> ToAdd)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -937,11 +880,10 @@ namespace GalamForecast.Models.DAL
 
         public static List<ForecastRows> GetForecast(int year, string fDate = null, Users user = null)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
-                //Completed
                 string str = $"WITH tbl AS (SELECT * FROM tblForecastTransactions WHERE forecastTransactionStatus = 'Completed'" +
                     $" AND yearP = {year}{(fDate is null ? "" : $" AND forecastTransactionCreationDate<='{fDate}'")})\n" +
                     $"SELECT forc.* ,countryName, countryMarket, itemDescription, productFamilyName, customerName, personFullName" +
@@ -995,7 +937,7 @@ namespace GalamForecast.Models.DAL
 
         public static List<int> GetForecastYears()
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -1014,7 +956,7 @@ namespace GalamForecast.Models.DAL
 
         public static bool UpdateForecast(Users user, List<ForecastRows> forecastToUpdate)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -1041,7 +983,7 @@ namespace GalamForecast.Models.DAL
 
         public static ForecastRows AddNewForecastRow(Users user, ForecastRows row, Customers customer)
         {
-            SqlConnection con = connect("DBConnectionString");
+            SqlConnection con = Connect("DBConnectionString");
 
             try
             {
@@ -1104,6 +1046,488 @@ namespace GalamForecast.Models.DAL
                         Convert.ToString(dr["productFamilyName"]),
                         Convert.ToString(dr["customerName"]),
                         Convert.ToString(dr["personFullName"]));
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static int GetNumOfApprovals(Users user)
+        {
+            SqlConnection con = Connect("DBConnectionString");
+            string whereStr = $"{(user.Permissions.Contains(3) ? "" : $"{(user.Permissions.Contains(4) ? " and isLocal=1" : $" and personId={user.PersonId}")}")}";
+
+            try
+            {
+                string str = $"select count(*) as num from tblForecastTransactions as forc" +
+                    $" left join tblShipTos ON(forc.customerNumber= tblShipTos.customerNumber AND forc.shipToName= tblShipTos.shipToName)" +
+                    $" left join tblCountries ON tblShipTos.countryId = tblCountries.countryId" +
+                    $" left join tblItems ON forc.itemNumber = tblItems.itemNumber" +
+                    $" left join tblProductFamilies ON tblItems.productFamilyId = tblProductFamilies.productFamilyId" +
+                    $" left join tblCustomers ON forc.customerNumber = tblCustomers.customerNumber" +
+                    $" left join tblPeople ON tblCustomers.saleMenagerId = tblPeople.personId" +
+                    $" where forecastTransactionStatus = 'Pending'{whereStr}";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                int result = Convert.ToInt32(dr["num"]);
+                dr.Close();
+                return result;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static List<ApprovalRows> GetApprovals(Users user)
+        {
+            SqlConnection con = Connect("DBConnectionString");
+            string whereStr = $"{(user.Permissions.Contains(3) ? "" : $"{(user.Permissions.Contains(4) ? " and isLocal=1" : $" and personId={user.PersonId}")}")}";
+
+            try
+            {
+                string str = $"select forc.* ,countryName, countryMarket, itemDescription, productFamilyName, customerName, personFullName" +
+                    $" from tblForecastTransactions as forc" +
+                    $" left join tblShipTos ON(forc.customerNumber= tblShipTos.customerNumber AND forc.shipToName= tblShipTos.shipToName)" +
+                    $" left join tblCountries ON tblShipTos.countryId = tblCountries.countryId" +
+                    $" left join tblItems ON forc.itemNumber = tblItems.itemNumber" +
+                    $" left join tblProductFamilies ON tblItems.productFamilyId = tblProductFamilies.productFamilyId" +
+                    $" left join tblCustomers ON forc.customerNumber = tblCustomers.customerNumber" +
+                    $" left join tblPeople ON tblCustomers.saleMenagerId = tblPeople.personId" +
+                    $" where forecastTransactionStatus = 'Pending'{whereStr}";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                List<ApprovalRows> result = new List<ApprovalRows>();
+                while (dr.Read())
+                {
+                    result.Add(new ApprovalRows(
+                        Convert.ToDateTime(dr["forecastTransactionCreationDate"]),
+                        Convert.ToString(dr["itemNumber"]),
+                        Convert.ToInt32(dr["yearP"]),
+                        Convert.ToInt32(dr["quarterP"]),
+                        Convert.ToInt32(dr["customerNumber"]),
+                        Convert.ToString(dr["shipToName"]),
+                        Convert.ToDouble(dr["forecastTransactionQty"]),
+                        Convert.ToString(dr["countryName"]),
+                        Convert.ToString(dr["countryMarket"]),
+                        Convert.ToString(dr["itemDescription"]),
+                        Convert.ToString(dr["productFamilyName"]),
+                        Convert.ToString(dr["customerName"]),
+                        Convert.ToString(dr["personFullName"]),
+                        Convert.ToInt32(dr["forecastTransactionsId"])
+                        ));
+                }
+                dr.Close();
+                return result;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static bool PostApprovals(Users user, int id, string action)
+        {
+            SqlConnection con = Connect("DBConnectionString");
+
+            try
+            {
+                string str = $"select forc.* ,countryName, countryMarket, itemDescription, productFamilyName, customerName, personFullName, isLocal, personId" +
+                    $" from tblForecastTransactions as forc" +
+                    $" left join tblShipTos ON(forc.customerNumber= tblShipTos.customerNumber AND forc.shipToName= tblShipTos.shipToName)" +
+                    $" left join tblCountries ON tblShipTos.countryId = tblCountries.countryId" +
+                    $" left join tblItems ON forc.itemNumber = tblItems.itemNumber" +
+                    $" left join tblProductFamilies ON tblItems.productFamilyId = tblProductFamilies.productFamilyId" +
+                    $" left join tblCustomers ON forc.customerNumber = tblCustomers.customerNumber" +
+                    $" left join tblPeople ON tblCustomers.saleMenagerId = tblPeople.personId" +
+                    $" where forecastTransactionsId={id}";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (!dr.HasRows) { throw new Exception("NotFound"); }
+                dr.Read();
+                bool isLocal = Convert.ToBoolean(dr["isLocal"]);
+                if (!user.Permissions.Contains(3)) if (user.Permissions.Contains(4) && !isLocal)
+                    {
+                        if (!user.IsSaleMenager) throw new Exception("Forbidden");
+                        else if (user.PersonId != Convert.ToInt32(dr["personId"])) throw new Exception("Forbidden");
+                    }
+                string status = Convert.ToString(dr["forecastTransactionStatus"]);
+                if (status == "Completed") throw new Exception("Completed");
+                if (status == "Canceled") throw new Exception("Canceled");
+                dr.Close();
+                str = $"UPDATE tblForecastTransactions SET forecastTransactionStatus = '{(action == "allow" ? "Completed" : "Canceled")}', forecastTransactionLastUpdateBy = '{user.UserName}'" +
+                    $", forecastTransactionLastUpdateDate = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}' WHERE forecastTransactionsId = {id}";
+                cmd = CreateCommand(str, con);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static List<StatisticalForecastRow> GetStatisticalForecastRows(int year)
+        {
+            SqlConnection con = Connect("DBConnectionString");
+
+            try
+            {
+                string str = $"select yearP, customerNumber, tblProductFamilies.productFamilyId," +
+                    $" SUM(CASE WHEN(quarterP = 1) THEN salesQty ELSE 0 END) AS Q1Sales," +
+                    $" SUM(CASE WHEN(quarterP = 2) THEN salesQty ELSE 0 END) AS Q2Sales," +
+                    $" SUM(CASE WHEN(quarterP = 3) THEN salesQty ELSE 0 END) AS Q3Sales," +
+                    $" SUM(CASE WHEN(quarterP = 4) THEN salesQty ELSE 0 END) AS Q4Sales" +
+                    $" into #TS from tblSales" +
+                    $" left join tblItems on tblSales.itemNumber = tblItems.itemNumber" +
+                    $" left join tblProductFamilies on tblItems.productFamilyId = tblProductFamilies.productFamilyId" +
+                    $" group by yearP, customerNumber, tblProductFamilies.productFamilyId;" +
+                    $"WITH tbl AS(SELECT * FROM tblForecastTransactions WHERE forecastTransactionStatus = 'Completed' and yearP = {year})" +
+                    $" SELECT forc.* , customerName, personFullName," +
+                    $" TS1.Q1Sales as Q11, TS1.Q2Sales as Q21, TS1.Q3Sales as Q31, TS1.Q4Sales as Q41," +
+                    $" TS2.Q1Sales as Q12, TS1.Q2Sales as Q22, TS1.Q3Sales as Q32, TS1.Q4Sales as Q42," +
+                    $" TS3.Q1Sales as Q13, TS1.Q2Sales as Q23, TS1.Q3Sales as Q33, TS1.Q4Sales as Q43," +
+                    $" TS4.Q1Sales as Q14, TS1.Q2Sales as Q24, TS1.Q3Sales as Q34, TS1.Q4Sales as Q44" +
+                    $" FROM(SELECT t1.yearP, t1.customerNumber, tblProductFamilies.productFamilyId, tblProductFamilies.productFamilyName," +
+                    $" SUM(CASE WHEN(t1.quarterP = 1) THEN t1.forecastTransactionQty ELSE 0 END) AS Q1F," +
+                    $" SUM(CASE WHEN(t1.quarterP = 2) THEN t1.forecastTransactionQty ELSE 0 END) AS Q2F," +
+                    $" SUM(CASE WHEN(t1.quarterP = 3) THEN t1.forecastTransactionQty ELSE 0 END) AS Q3F," +
+                    $" SUM(CASE WHEN(t1.quarterP = 4) THEN t1.forecastTransactionQty ELSE 0 END) AS Q4F" +
+                    $" FROM tbl t1 LEFT JOIN tbl t2" +
+                    $" ON(t1.itemNumber = t2.itemNumber AND t1.yearP = t2.yearP AND t1.quarterP = t2.quarterP AND t1.customerNumber = t2.customerNumber" +
+                    $" AND t1.shipToName = t2.shipToName AND t1.forecastTransactionCreationDate < t2.forecastTransactionCreationDate) LEFT JOIN tbl t3" +
+                    $" ON(t1.itemNumber = t3.itemNumber AND t1.yearP = t3.yearP AND t1.quarterP = t3.quarterP AND t1.customerNumber = t3.customerNumber" +
+                    $" AND t1.shipToName = t3.shipToName AND t1.forecastTransactionsId < t3.forecastTransactionsId)" +
+                    $" LEFT JOIN tblItems ON t1.itemNumber = tblItems.itemNumber" +
+                    $" LEFT JOIN tblProductFamilies ON tblItems.productFamilyId = tblProductFamilies.productFamilyId" +
+                    $" WHERE t2.forecastTransactionCreationDate IS NULL AND t3.forecastTransactionsId IS NULL" +
+                    $" GROUP BY tblProductFamilies.productFamilyId, t1.yearP, t1.customerNumber, tblProductFamilies.productFamilyName) AS forc" +
+                    $" LEFT JOIN tblCustomers ON forc.customerNumber = tblCustomers.customerNumber" +
+                    $" LEFT JOIN tblPeople ON tblCustomers.saleMenagerId = tblPeople.personId" +
+                    $" left join #TS as TS1 on (forc.yearP - 1 = TS1.yearP and forc.customerNumber = TS1.customerNumber and forc.productFamilyId=TS1.productFamilyId)" +
+                    $" left join #TS as TS2 on (forc.yearP - 2 = TS2.yearP and forc.customerNumber = TS2.customerNumber and forc.productFamilyId=TS2.productFamilyId)" +
+                    $" left join #TS as TS3 on (forc.yearP - 3 = TS3.yearP and forc.customerNumber = TS3.customerNumber and forc.productFamilyId=TS3.productFamilyId)" +
+                    $" left join #TS as TS4 on (forc.yearP - 4 = TS4.yearP and forc.customerNumber = TS4.customerNumber and forc.productFamilyId=TS4.productFamilyId)" +
+                    $" drop table #TS";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                List<StatisticalForecastRow> result = new List<StatisticalForecastRow>();
+                while (dr.Read())
+                {
+                    result.Add(new StatisticalForecastRow(
+                        Convert.ToInt32(dr["yearP"]),
+                        Convert.ToInt32(dr["customerNumber"]),
+                        Convert.ToString(dr["productFamilyName"]),
+                        Convert.ToString(dr["customerName"]),
+                        Convert.ToString(dr["personFullName"]),
+                        dr["Q1F"] != DBNull.Value ? Convert.ToDouble(dr["Q1F"]) : 0,
+                        dr["Q2F"] != DBNull.Value ? Convert.ToDouble(dr["Q2F"]) : 0,
+                        dr["Q3F"] != DBNull.Value ? Convert.ToDouble(dr["Q3F"]) : 0,
+                        dr["Q4F"] != DBNull.Value ? Convert.ToDouble(dr["Q4F"]) : 0,
+                        dr["Q11"] != DBNull.Value ? Convert.ToDouble(dr["Q11"]) : 0,
+                        dr["Q21"] != DBNull.Value ? Convert.ToDouble(dr["Q21"]) : 0,
+                        dr["Q31"] != DBNull.Value ? Convert.ToDouble(dr["Q31"]) : 0,
+                        dr["Q41"] != DBNull.Value ? Convert.ToDouble(dr["Q41"]) : 0,
+                        dr["Q12"] != DBNull.Value ? Convert.ToDouble(dr["Q12"]) : 0,
+                        dr["Q22"] != DBNull.Value ? Convert.ToDouble(dr["Q22"]) : 0,
+                        dr["Q32"] != DBNull.Value ? Convert.ToDouble(dr["Q32"]) : 0,
+                        dr["Q42"] != DBNull.Value ? Convert.ToDouble(dr["Q42"]) : 0,
+                        dr["Q13"] != DBNull.Value ? Convert.ToDouble(dr["Q13"]) : 0,
+                        dr["Q23"] != DBNull.Value ? Convert.ToDouble(dr["Q23"]) : 0,
+                        dr["Q33"] != DBNull.Value ? Convert.ToDouble(dr["Q33"]) : 0,
+                        dr["Q43"] != DBNull.Value ? Convert.ToDouble(dr["Q43"]) : 0,
+                        dr["Q14"] != DBNull.Value ? Convert.ToDouble(dr["Q14"]) : 0,
+                        dr["Q24"] != DBNull.Value ? Convert.ToDouble(dr["Q24"]) : 0,
+                        dr["Q34"] != DBNull.Value ? Convert.ToDouble(dr["Q34"]) : 0,
+                        dr["Q44"] != DBNull.Value ? Convert.ToDouble(dr["Q44"]) : 0
+                        ));
+                }
+                dr.Close();
+                return result;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static List<int> GetStatisticalForecastYears()
+        {
+            SqlConnection con = Connect("DBConnectionString");
+
+            try
+            {
+                string str = $"select distinct yearP from tblForecastTransactions where yearP >= {Weeks.CurrentYear()} order by yearP";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (!dr.HasRows) { throw new Exception("NotFound"); }
+                List<int> result = new List<int>();
+                while (dr.Read()) { result.Add(Convert.ToInt32(dr["yearP"])); }
+                dr.Close();
+                return result;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static List<ProductFamilies> GetAllProductFamilies()
+        {
+            SqlConnection con = Connect();
+
+            try
+            {
+                string str = $"select * from tblProductFamilies";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                List<ProductFamilies> result = new List<ProductFamilies>();
+                while (dr.Read())
+                {
+                    result.Add(new ProductFamilies(
+                        Convert.ToString(dr["productFamilyId"]),
+                        Convert.ToString(dr["productFamilyName"])
+                        ));
+                }
+                return result;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static List<Transactions> GetTransactions(string from = null, string to = null, string year = null, string quarter = null,
+            string customerNumber = null, string shipToName = null, string itemNumber = null, string productFamilyId = null, string market = null, string countryId = null)
+        {
+            List<string> whereList = new List<string>();
+            if (!(from is null)) whereList.Add($"forecastTransactionCreationDate >= '{string.Join(" ", from.Split('T'))}'");
+            if (!(to is null)) whereList.Add($"forecastTransactionCreationDate <= '{string.Join(" ", to.Split('T'))}'");
+            if (!(year is null)) whereList.Add($"yearP = {year}");
+            if (!(quarter is null)) whereList.Add($"quarterP = {quarter}");
+            if (!(customerNumber is null)) whereList.Add($"trans.customerNumber = {customerNumber}");
+            if (!(shipToName is null)) whereList.Add($"trans.shipToName = '{shipToName}'");
+            if (!(itemNumber is null)) whereList.Add($"trans.itemNumber = '{itemNumber}'");
+            if (!(productFamilyId is null)) whereList.Add($"families.productFamilyId = '{productFamilyId}'");
+            if (!(market is null)) whereList.Add($"countries.countryMarket = '{market}'");
+            if (!(countryId is null)) whereList.Add($"countries.countryId = '{countryId}'");
+            string whereStr = $"{(whereList.Count == 0 ? "" : $" where {string.Join(" AND ", whereList)}")}";
+
+            SqlConnection con = Connect();
+
+            try
+            {
+                string str = $"select trans.*, items.itemDescription, families.productFamilyName, customers.customerName, people.personFullName," +
+                    $" countries.countryName, countries.countryMarket" +
+                    $" from tblForecastTransactions as trans" +
+                    $" left join tblItems as items on trans.itemNumber = items.itemNumber" +
+                    $" left join tblProductFamilies as families on items.productFamilyId = families.productFamilyId" +
+                    $" left join tblCustomers as customers on trans.customerNumber = customers.customerNumber" +
+                    $" left join tblPeople as people on customers.saleMenagerId = people.personId" +
+                    $" left join tblShipTos as ST on(trans.customerNumber = ST.customerNumber and trans.shipToName = ST.shipToName)" +
+                    $" left join tblCountries as countries on ST.countryId = countries.countryId{whereStr}";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (!dr.HasRows) { throw new Exception("NotFound"); }
+                List<Transactions> result = new List<Transactions>();
+                while (dr.Read())
+                {
+                    result.Add(new Transactions(
+                        Convert.ToDateTime(dr["forecastTransactionCreationDate"]),
+                        Convert.ToInt32(dr["yearP"]),
+                        Convert.ToInt32(dr["quarterP"]),
+                        Convert.ToString(dr["forecastTransactionStatus"]),
+                        Convert.ToDouble(dr["forecastTransactionQty"]),
+                        Convert.ToString(dr["itemNumber"]),
+                        Convert.ToString(dr["itemDescription"]),
+                        Convert.ToString(dr["productFamilyName"]),
+                        Convert.ToInt32(dr["customerNumber"]),
+                        Convert.ToString(dr["customerName"]),
+                        Convert.ToString(dr["shipToName"]),
+                        Convert.ToBoolean(dr["forecastTransactionIsMelting"])? "Melting": "Classic",
+                        Convert.ToString(dr["personFullName"]),
+                        Convert.ToString(dr["countryName"]),
+                        Convert.ToString(dr["countryMarket"]),
+                        Convert.ToString(dr["forecastTransactionCreatedBy"]),
+                        Convert.ToDateTime(dr["forecastTransactionLastUpdateDate"]),
+                        Convert.ToString(dr["forecastTransactionLastUpdateBy"])
+                        ));
+                }
+                return result;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static Distribution GetDistribution()
+        {
+            SqlConnection con = Connect();
+
+            try
+            {
+                string str = $"select * from tblFrProductFamilies left join tblProductFamilies on tblFrProductFamilies.frProductFamilyId = tblProductFamilies.productFamilyId";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                Distribution result = new Distribution();
+                while (dr.Read())
+                {
+                    if (Convert.ToString(dr["productFamilyName"]) == "Fructose S") result.S = Convert.ToDouble(dr["frProductFamilyDistribution"]);
+                    if (Convert.ToString(dr["productFamilyName"]) == "Fructose N") result.N = Convert.ToDouble(dr["frProductFamilyDistribution"]);
+                    if (Convert.ToString(dr["productFamilyName"]) == "Fructose D") result.D = Convert.ToDouble(dr["frProductFamilyDistribution"]);
+                    if (Convert.ToString(dr["productFamilyName"]) == "Fructose E") result.E = Convert.ToDouble(dr["frProductFamilyDistribution"]);
+                    if (Convert.ToString(dr["productFamilyName"]) == "Fructose OF") result.OF = Convert.ToDouble(dr["frProductFamilyDistribution"]);
+                }
+                return result;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static bool PostInventoryParams(Dictionary<string, double> distD, List<Periods> periods)
+        {
+            SqlConnection con = Connect();
+
+            try
+            {
+                string str = $"";
+                foreach (string key in distD.Keys) str += $"update tblFrProductFamilies set frProductFamilyDistribution = {distD[key].ToString().Replace(",", ".")}" +
+                        $" where frProductFamilyId = (select productFamilyId from tblProductFamilies where productFamilyName = 'Fructose {key}')\n";
+                foreach (Periods p in periods) str += $"update tblPeriods set dailyProduction = {p.DailyProduction}, greensUsing = {p.GreensUsing}, factorS = {p.FactorS}" +
+                        $", factorN = {p.FactorN}, factorD = {p.FactorD}, factorE = {p.FactorE}, factorOF = {p.FactorOF}, factorL = {p.FactorL}" +
+                        $", storageCapacity = {p.StorageCapacity}, conteinersInventory = {p.ConteinersInventory} where yearP = {p.YearP} and quarterP = {p.QuarterP}\n";
+                str = $"BEGIN TRANSACTION\n{str}IF @@ERROR = 0 COMMIT ELSE ROLLBACK";
+                SqlCommand cmd = CreateCommand(str, con);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static Dictionary<int, Weeks> GetYearWeeks(int year)
+        {
+            SqlConnection con = Connect();
+
+            try
+            {
+                string str = $"select * from tblWeeks where yearP = {year}";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                Dictionary<int, Weeks> result = new Dictionary<int, Weeks>();
+                while (dr.Read())
+                {
+                    Weeks tmp = new Weeks(Convert.ToInt32(dr["yearP"]),
+                        Convert.ToInt32(dr["quarterP"]),
+                        Convert.ToInt32(dr["weekNumber"]),
+                        Convert.ToDouble(dr["actualProduction"]),
+                        Convert.ToDouble(dr["actualGreens"]),
+                        Convert.ToDouble(dr["actualSales"]),
+                        Convert.ToDouble(dr["actualInventory"]),
+                        Convert.ToDouble(dr["actualInventoryS"]),
+                        Convert.ToDouble(dr["actualInventoryN"]),
+                        Convert.ToDouble(dr["actualInventoryD"]),
+                        Convert.ToDouble(dr["actualInventoryE"]),
+                        Convert.ToDouble(dr["actualInventoryOF"]),
+                        Convert.ToDouble(dr["actualInventoryExternal"]), true);
+                    result[tmp.ThisAbsWeekNumber] = tmp;
+                }
+                return result;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static Weeks GetLastWeeks()
+        {
+            SqlConnection con = Connect();
+
+            try
+            {
+                string str = $"select* from tblWeeks as t1 left join tblWeeks as t2 on(t1.yearP* 100 + t1.weekNumber<t2.yearP* 100 + t2.weekNumber) where t2.yearP is null";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (!dr.HasRows) throw new Exception("NotFound");
+                dr.Read();
+                return new Weeks(Convert.ToInt32(dr["yearP"]),
+                    Convert.ToInt32(dr["quarterP"]),
+                    Convert.ToInt32(dr["weekNumber"]),
+                    Convert.ToDouble(dr["actualProduction"]),
+                    Convert.ToDouble(dr["actualGreens"]),
+                    Convert.ToDouble(dr["actualSales"]),
+                    Convert.ToDouble(dr["actualInventory"]),
+                    Convert.ToDouble(dr["actualInventoryS"]),
+                    Convert.ToDouble(dr["actualInventoryN"]),
+                    Convert.ToDouble(dr["actualInventoryD"]),
+                    Convert.ToDouble(dr["actualInventoryE"]),
+                    Convert.ToDouble(dr["actualInventoryOF"]),
+                    Convert.ToDouble(dr["actualInventoryExternal"]), true);
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static Dictionary<int, Periods> GetPeriods(int lastWeekPeriod)
+        {
+            SqlConnection con = Connect("DBConnectionString");
+            string whereStr = $" WHERE (yearP - {Periods.FirstYear}) * 4 + quarterP >= {lastWeekPeriod}";
+
+            try
+            {
+                string str = $"SELECT * FROM tblPeriods{whereStr}";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                Dictionary<int, Periods> result = new Dictionary<int, Periods>();
+                while (dr.Read())
+                {
+                    Periods tmp = new Periods(
+                        Convert.ToInt32(dr["yearP"]),
+                        Convert.ToInt32(dr["quarterP"]),
+                        Convert.ToInt32(dr["dailyProduction"]),
+                        Convert.ToInt32(dr["greensUsing"]),
+                        Convert.ToInt32(dr["factorS"]),
+                        Convert.ToInt32(dr["factorN"]),
+                        Convert.ToInt32(dr["factorD"]),
+                        Convert.ToInt32(dr["factorE"]),
+                        Convert.ToInt32(dr["factorOF"]),
+                        Convert.ToInt32(dr["factorL"]),
+                        Convert.ToInt32(dr["storageCapacity"]),
+                        Convert.ToInt32(dr["conteinersInventory"]));
+                    result[tmp.ThisPeriodNumber] = tmp;
+                }
+                return result;
+            }
+            catch (Exception ex) { throw ex; }
+            finally { if (con != null) con.Close(); }
+        }
+
+        public static Dictionary<int, ForecastSum> GetForecastSum(int yearFrom, int yearTo)
+        {
+            SqlConnection con = Connect("DBConnectionString");
+
+            try
+            {
+                string str = $"WITH tbl AS(SELECT * FROM tblForecastTransactions WHERE forecastTransactionStatus = 'Completed' AND yearP >= {yearFrom} AND yearP <= {yearTo})\n" +
+                    $"select sub.yearP, sub.quarterP, sum(sub.qty * cf.coefficientS) as S," +
+                    $" sum(sub.qty * cf.coefficientN) as N," +
+                    $" sum(sub.qty * cf.coefficientD) as D," +
+                    $" sum(sub.qty * cf.coefficientE) as E," +
+                    $" sum(sub.qty * cf.coefficientOF) as [OF]," +
+                    $" sum(sub.qty * cf.coefficientL) as L" +
+                    $" from(SELECT t1.yearP, t1.quarterP, tblProductFamilies.productFamilyId, tblProductFamilies.productFamilyName, sum(t1.forecastTransactionQty) as qty" +
+                    $" FROM tbl t1 LEFT JOIN tbl t2" +
+                    $" ON(t1.itemNumber = t2.itemNumber AND t1.yearP = t2.yearP AND t1.quarterP = t2.quarterP AND t1.customerNumber = t2.customerNumber" +
+                    $" AND t1.shipToName = t2.shipToName AND t1.forecastTransactionCreationDate < t2.forecastTransactionCreationDate) LEFT JOIN tbl t3" +
+                    $" ON(t1.itemNumber = t3.itemNumber AND t1.yearP = t3.yearP AND t1.quarterP = t3.quarterP AND t1.customerNumber = t3.customerNumber" +
+                    $" AND t1.shipToName = t3.shipToName AND t1.forecastTransactionsId < t3.forecastTransactionsId)" +
+                    $" LEFT JOIN tblItems ON t1.itemNumber = tblItems.itemNumber" +
+                    $" LEFT JOIN tblProductFamilies ON tblItems.productFamilyId = tblProductFamilies.productFamilyId" +
+                    $" WHERE t2.forecastTransactionCreationDate IS NULL AND t3.forecastTransactionsId IS NULL" +
+                    $" GROUP BY tblProductFamilies.productFamilyId, tblProductFamilies.productFamilyName, t1.yearP, t1.quarterP) as sub" +
+                    $" left join tblFrProductFamilies as cf on sub.productFamilyId = cf.frProductFamilyId" +
+                    $" group by sub.yearP, sub.quarterP";
+                SqlCommand cmd = CreateCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader();
+                Dictionary<int, ForecastSum> result = new Dictionary<int, ForecastSum>();
+                while (dr.Read())
+                {
+                    ForecastSum tmp = new ForecastSum(
+                        Convert.ToInt32(dr["yearP"]),
+                        Convert.ToInt32(dr["quarterP"]),
+                        Convert.ToDouble(dr["S"]),
+                        Convert.ToDouble(dr["N"]),
+                        Convert.ToDouble(dr["D"]),
+                        Convert.ToDouble(dr["E"]),
+                        Convert.ToDouble(dr["OF"]),
+                        Convert.ToDouble(dr["L"]));
+                    result[tmp.PeriodNumber] = tmp;
+                }
+                return result;
             }
             catch (Exception ex) { throw ex; }
             finally { if (con != null) con.Close(); }

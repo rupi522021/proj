@@ -179,10 +179,12 @@ export default class UserManagement extends Component {
         />
         {this.state.modalToShow == "PassZeroMod" ? <PassZeroMod user={this.state.userPassZeroMod} cancelX={this.hideModal} saveF={this.passZeroSave} /> : ""}
         {this.state.modalToShow == "SetRoolMod" ?
-          <SetRoolMod user={this.state.userSetRoolMod} cancelX={this.hideModal} saveF={this.setRoolSave} AllUserTypes={this.UserTypes} AllPermissionTypes={this.PermissionTypes} /> : ""}
+          <SetRoolMod user={this.state.userSetRoolMod} cancelX={this.hideModal} saveF={this.setRoolSave}
+            AllUserTypes={this.UserTypes} AllPermissionTypes={this.PermissionTypes} /> : ""}
         {this.state.modalToShow == "AddUserMod" ? <AddUserMod cancelX={this.hideModal} AllUsers={this.data} AllPeople={this.state.allPeople} saveF={this.addUserSave} /> : ""}
         {this.state.modalToShow == "AddUserSetRoolMod" ?
-          <SetRoolMod user={this.state.userSetRoolMod} cancelX={this.hideModal} saveF={this.addUserSetRoolSave} AllUserTypes={this.UserTypes} AllPermissionTypes={this.PermissionTypes} /> : ""}
+          <SetRoolMod user={this.state.userSetRoolMod} cancelX={this.hideModal}
+            saveF={this.addUserSetRoolSave} AllUserTypes={this.UserTypes} AllPermissionTypes={this.PermissionTypes} /> : ""}
       </div>
     )
   }

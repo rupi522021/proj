@@ -122,29 +122,6 @@ namespace GalamForecast.Models.DAL
             finally { if (con != null) con.Close(); }
         }
 
-        //public static List<SaleRows> GetErpSaleRows()
-        //{
-        //    SqlConnection con = connect();
-
-        //    try
-        //    {
-        //        string str = $"select year(saleDate) as year, DATEPART(QUARTER, saleDate) as quarter, customerNumber, itemNumber, sum(qty) as qty" +
-        //            $" from erpSales" +
-        //            $" where (year(saleDate) * 4 + DATEPART(QUARTER, saleDate)) < (year(GETDATE()) * 4 + DATEPART(QUARTER, GETDATE()))" +
-        //            $" group by year(saleDate), DATEPART(QUARTER, saleDate), customerNumber, itemNumber";
-        //        SqlCommand cmd = CreateCommand(str, con);
-        //        SqlDataReader dr = cmd.ExecuteReader();
-        //        List<SaleRows> result = new List<SaleRows>();
-        //        while (dr.Read())
-        //        {
-        //            result.Add(new SaleRows(Convert.ToInt32(dr["year"]), Convert.ToInt32(dr["quarter"]), Convert.ToString(dr["itemNumber"]), Convert.ToInt32(dr["customerNumber"]), Convert.ToDouble(dr["qty"])));
-        //        }
-        //        return result;
-        //    }
-        //    catch (Exception ex) { throw ex; }
-        //    finally { if (con != null) con.Close(); }
-        //}
-
         public static List<SaleRows> GetErpSaleRows(int minPeriod, int maxPeriod)
         {
             SqlConnection con = connect();
@@ -153,7 +130,7 @@ namespace GalamForecast.Models.DAL
             {
                 string str = $"select year(saleDate) as year, DATEPART(QUARTER, saleDate) as quarter, customerNumber, itemNumber, sum(qty) as qty" +
                     $" from erpSales" +
-                    $" where ((year(saleDate) - 2013) * 4 + DATEPART(QUARTER, saleDate)) <= {maxPeriod} AND ((year(saleDate) - 2013) * 4 + DATEPART(QUARTER, saleDate)) >= {minPeriod}" +
+                    $" where ((year(saleDate) - {Periods.FirstYear}) * 4 + DATEPART(QUARTER, saleDate)) <= {maxPeriod} AND ((year(saleDate) - {Periods.FirstYear}) * 4 + DATEPART(QUARTER, saleDate)) >= {minPeriod}" +
                     $" group by year(saleDate), DATEPART(QUARTER, saleDate), customerNumber, itemNumber";
                 SqlCommand cmd = CreateCommand(str, con);
                 SqlDataReader dr = cmd.ExecuteReader();

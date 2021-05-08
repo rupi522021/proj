@@ -1,4 +1,4 @@
-import { FormControl, InputBase, InputLabel, MenuItem, Select, TextField, Tooltip, } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select, TextField, Tooltip, } from '@material-ui/core';
 import React, { Component } from 'react'
 import { MsgContext, apiUrl, fetchCall } from '../../consts/MainConst';
 import AddForecastRow from '../Modals/AddForecastRow';
@@ -26,19 +26,10 @@ export default class UpdateMarketingForecast extends Component {
       { name: "Item description", data: "ItemDescription" },
       { name: "Product family", data: "ProductFamilyName" },
       { name: "Melting/Classic", data: "MeltingClassic" },
-      // { name: "Q1", data: "Q1", render: this.inputRenderFromDict },
-      // { name: "Q2", data: "Q2", render: this.inputRenderFromDict },
-      // { name: "Q3", data: "Q3", render: this.inputRenderFromDict },
-      // { name: "Q4", data: "Q4", render: this.inputRenderFromDict },
       { name: "Q1", data: "Q1", render: this.inputRender },
       { name: "Q2", data: "Q2", render: this.inputRender },
       { name: "Q3", data: "Q3", render: this.inputRender },
       { name: "Q4", data: "Q4", render: this.inputRender },
-      // { name: "Q1", data: "Q1Input" },
-      // { name: "Q2", data: "Q2Input" },
-      // { name: "Q3", data: "Q3Input" },
-      // { name: "Q4", data: "Q4Input" },
-      // { name: "Total", data: "Total" },
     ];
     this.allItems = [];
     this.allShipTos = [];
@@ -57,10 +48,6 @@ export default class UpdateMarketingForecast extends Component {
       }
     };
   }
-
-  // inputRenderFromDict = (row, data, index) => {
-  //   return this.inputs[`${data}${row.StringKey}`];
-  // }
 
   inputRender = (row, data, index) => {
     if (this.lockedQuarters.includes(Number(data[1]))) return (
@@ -116,8 +103,6 @@ export default class UpdateMarketingForecast extends Component {
     let tmpVal = e.currentTarget.value;
     if (tmpVal != '') if (Number(tmpVal) < 0) tmpVal = 0;
     let tmp = this.data[e.currentTarget.dataset.index];
-    // let tmp;
-    // for (let i = 0; i < this.data.length; i++) if (this.data[i].StringKey == e.currentTarget.dataset.rowkey) tmp = this.data[i];
     tmp[e.currentTarget.dataset.feild] = tmpVal;
     tmp.Total = Math.round((Number(tmp.Q1) + Number(tmp.Q2) + Number(tmp.Q3) + Number(tmp.Q4)) * 10) / 10;
     if (tmp.QuartersToUpdate == undefined) tmp.QuartersToUpdate = [];
@@ -156,59 +141,6 @@ export default class UpdateMarketingForecast extends Component {
     this.saveIconRef.current.className = "disabled";
     this.saveIconRef.current.src = "img/Save_disabled.png";
     this.lockedQuarters = data.LockedQuarters;
-    // let i;
-    // //this.inputs
-    // this.data.forEach(item => {
-    //   //{`${data}${row.StringKey}`}
-    //   for (i = 1; i <= 4; i++) {
-    //     //this.inputs[`Q${i}${item.StringKey}`] = 
-    //     if (this.lockedQuarters.includes(i)) this.inputs[`Q${i}${item.StringKey}`] =
-    //       <Tooltip title={`Q${i} חסום לעדכון`}>
-    //         <TextField
-    //           type="number"
-    //           variant="outlined"
-    //           size="small"
-    //           //defaultValue={item[`Q${i}`]}
-    //           value={item[`Q${i}`]}
-    //           disabled
-    //           key={`Q${i}${item.StringKey}`}
-    //           onChange={this.inputChange}
-    //           style={this.classes.inputStyle}
-    //           inputProps={{ "data-rowkey": item.StringKey, "data-feild": `Q${i}` }}
-    //         />
-    //       </Tooltip>;
-    //     else {
-    //       if (item.LockedToUser == this.props.logedInUser.UserName) this.inputs[`Q${i}${item.StringKey}`] =
-    //         <TextField
-    //           type="number"
-    //           variant="outlined"
-    //           size="small"
-    //           //defaultValue={item[`Q${i}`]}
-    //           value={item[`Q${i}`]}
-    //           key={`Q${i}${item.StringKey}`}
-    //           onChange={this.inputChange}
-    //           style={this.classes.inputStyle}
-    //           inputProps={{ "data-rowkey": item.StringKey, "data-feild": `Q${i}` }}
-    //         />;
-    //       else this.inputs[`Q${i}${item.StringKey}`] =
-    //         <Tooltip title={`משתמש ${item.LockedToUser} מעדכן שורה זאת`}>
-    //           <TextField
-    //             type="number"
-    //             variant="outlined"
-    //             size="small"
-    //             //defaultValue={item[`Q${i}`]}
-    //             value={item[`Q${i}`]}
-    //             disabled
-    //             key={`Q${i}${item.StringKey}`}
-    //             onChange={this.inputChange}
-    //             style={this.classes.inputStyle}
-    //             inputProps={{ "data-rowkey": item.StringKey, "data-feild": `Q${i}` }}
-    //           />
-    //         </Tooltip>;
-    //     }
-    //   }
-    // });
-    // console.log(this.inputs);
     this.setState({ yearValue: data.Year });
   }
 
@@ -284,7 +216,6 @@ export default class UpdateMarketingForecast extends Component {
           <div></div>
           <div className="divToolbarImg">
             <img src="img/plus.png" onClick={this.addForecastRow} />
-            {/* <img src="img/Refresh.png" onClick={this.refresh} /> */}
             {this.saved ?
               <img ref={this.saveIconRef} className="disabled" src="img/Save_disabled.png" onClick={this.save} /> :
               <img ref={this.saveIconRef} src="img/Save_normal.png" onClick={this.save} />}

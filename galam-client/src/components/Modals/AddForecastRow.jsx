@@ -19,10 +19,6 @@ export default class AddForecastRow extends Component {
       Q2: '',
       Q3: '',
       Q4: '',
-      // Q1: 0,
-      // Q2: 0,
-      // Q3: 0,
-      // Q4: 0,
     }
     this.classes = {
       inputStyle: {
@@ -88,18 +84,6 @@ export default class AddForecastRow extends Component {
   }
 
   onClickSave = () => {
-    // let tmp = {
-    //   ItemNumber: this.state.item,
-    //   Year: this.props.Year,
-    //   CustomerNumber: this.state.customerNumber,
-    //   ShipToName: (this.state.ShipTo == null ? "" : this.state.ShipTo),
-    //   MeltingClassic: this.state.MCValue,
-    //   Q1: (this.state.Q1 == "" ? 0 : this.state.Q1),
-    //   Q2: (this.state.Q2 == "" ? 0 : this.state.Q2),
-    //   Q3: (this.state.Q3 == "" ? 0 : this.state.Q3),
-    //   Q4: (this.state.Q4 == "" ? 0 : this.state.Q4),
-    //   QuartersToUpdate: [1, 2, 3, 4]
-    // };
     if (this.validateForm()) this.props.saveF({
       ItemNumber: this.state.item.Number,
       Year: this.props.Year,

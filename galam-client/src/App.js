@@ -7,7 +7,6 @@ import { MsgContext } from './consts/MainConst';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    //global.MessageShow = (msg, isSuccessShow, delMilSec = 3000) => { this.ModMessagesCall(msg, isSuccessShow, delMilSec = 3000) };
   };
 
   ModMessagesCall = (msg, isSuccessShow, delMilSec = 3000) => {

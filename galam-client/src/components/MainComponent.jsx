@@ -12,8 +12,6 @@ export default class MainComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // logedIn: true,
-      // logedInUser: this.tmpUser,
       logedIn: false,
       logedInUser: {
         UserName: '',
@@ -21,19 +19,7 @@ export default class MainComponent extends Component {
       }
     }
   }
-  tmpUser = {
-    Active: true,
-    Email: null,
-    FullName: null,
-    IsNewPassword: false,
-    IsSaleMenager: false,
-    Password: null,
-    Permissions: [1, 2, 3, 4, 6],
-    PersonId: 0,
-    Token: "ttrs50eAgQjrhDjm2MRK9teAUuNTqELfodssxAUbZkrOHgtGOyBNh5m0FgOBcAKS5323KqossplO1Fsn075r3xxjqsdGmJyPQPIDdqvXAIVrKOyzoaBV5SP76ICSDX6Y",
-    UserName: "ABROADM",
-    UserTypes: [2, 4]
-  }
+
   LogIn = (data) => { this.setState({ logedIn: true, logedInUser: data.User }); }
 
   LogOut = () => {

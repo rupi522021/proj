@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import React, { Component } from 'react'
 import { MsgContext, apiUrl, fetchCall } from '../consts/MainConst';
@@ -93,17 +93,6 @@ export default class LogInScr extends Component {
           />
         </FormControl>
         <br />
-        {/* <FormControlLabel
-          control={
-            <Checkbox
-              checked={this.state.saveCheckbox}
-              onChange={this.saveCheckboxChange}
-              color="primary"
-            />
-          }
-          label="זכור אותי"
-        />
-        <br /> */}
         <button className="blueButton" onClick={this.onPressLogIn}>כניסה</button>
       </div>
     )

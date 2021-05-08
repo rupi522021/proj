@@ -30,31 +30,6 @@ namespace GalamForecast.Models
             return Year == b.Year && Quarter == b.Quarter && ItemNumber == b.ItemNumber && Qty == b.Qty;
         }
 
-        //public static DbUpdates UpdateSaleRows()
-        //{
-        //    try
-        //    {
-        //        List<SaleRows> ErpData = ErpDBServices.GetErpSaleRows();
-        //        List<SaleRows> DbData = DBServices.GetSaleRows();
-        //        List<SaleRows> ToAdd = new List<SaleRows>();
-        //        List<SaleRows> ToUpdate = new List<SaleRows>();
-        //        for (int i = 0; i < ErpData.Count; i++)
-        //        {
-        //            try
-        //            {
-        //                SaleRows tmp = DbData.First(item => item.equalKey(ErpData[i]));
-        //                if (tmp.Qty != ErpData[i].Qty) ToUpdate.Add(ErpData[i]);
-        //            }
-        //            catch { ToAdd.Add(ErpData[i]); }
-        //        }
-        //        DbUpdates result = DBServices.AddUpdateSaleRows(ToAdd, ToUpdate);
-        //        result.FunctionName = "UpdateSales";
-        //        result.Report = result.NumOfErrors > 0 ? "Error" : "Done";
-        //        return result;
-        //    }
-        //    catch (Exception) { return new DbUpdates("UpdateSales", "Error"); }
-        //}
-
         public static DbUpdates UpdateSaleRows()
         {
             try

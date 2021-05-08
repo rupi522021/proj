@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, FormControlLabel, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
+import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import React, { Component } from 'react'
 import { MsgContext, apiUrl, fetchCall, PasswordPattern, PasswordNotValidMsg } from '../consts/MainConst';

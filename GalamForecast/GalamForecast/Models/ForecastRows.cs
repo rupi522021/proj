@@ -124,7 +124,7 @@ namespace GalamForecast.Models
             foreach (ForecastRows row in forecastRowFromClient)
                 if (LockedForecastRows.ContainsKey(row.StringKey) && !(row.QuartersToUpdate is null))
                     if (LockedForecastRows[row.StringKey].LockedToUser == row.LockedToUser && LockedForecastRows[row.StringKey].LockedToUser == user.UserName && row.QuartersToUpdate.Count > 0)
-                        if (row.Q1 > 0 && row.Q2 > 0 && row.Q3 > 0 && row.Q4 > 0) forecastToUpdate.Add(row);
+                        if (row.Q1 >= 0 && row.Q2 >= 0 && row.Q3 >= 0 && row.Q4 >= 0) forecastToUpdate.Add(row);
             if (forecastToUpdate.Count == 0) return false;
             return DBServices.UpdateForecast(user, forecastToUpdate);
         }

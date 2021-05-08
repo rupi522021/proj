@@ -12,11 +12,11 @@ namespace GalamForecast.Models
         const int defaultGreensUsing = 0;
         const int defaultStorageCapacity = 6000;
         const int defaultConteinersInventory = 1200;
-        const int firstYear = 2016;
+        public const int FirstYear = 2016;
 
         public Periods() { }
 
-        public Periods(int periodNumber) : this(firstYear + (periodNumber - 1) / 4, (periodNumber - 1) % 4 + 1) { }
+        public Periods(int periodNumber) : this(FirstYear + (periodNumber - 1) / 4, (periodNumber - 1) % 4 + 1) { }
 
         public Periods(int yearP, int quarterP, int dailyProduction, int greensUsing, int factorS, int factorN, int factorD, int factorE, int factorOF, int factorL, int storageCapacity, int conteinersInventory)
         {
@@ -63,12 +63,21 @@ namespace GalamForecast.Models
         public int StorageCapacity { get; set; }
         public int ConteinersInventory { get; set; }
         public int ThisPeriodNumber => PeriodNumber(YearP, QuarterP);
+        public bool PeriodInPast => ThisPeriodNumber < CurrentPeriodNumber();
 
         public static int Qarter(DateTime date) { return (date.Month - 1) / 3 + 1; }
 
-        public static int PeriodNumber(int year, int quarter) { return (year - firstYear) * 4 + quarter; }
+        public static int PeriodNumber(int year, int quarter) { return (year - FirstYear) * 4 + quarter; }
 
-        public static int PeriodNumber(DateTime date) { return (date.Year - firstYear) * 4 + Qarter(date); }
+        public static int PeriodNumber(DateTime date) { return (date.Year - FirstYear) * 4 + Qarter(date); }
+
+        public static int CurrentPeriodNumber() { return PeriodNumber(DateTime.Today); }
+
+        public static int NumOfWeeks(int year,int quarter)
+        {
+            if (quarter == 4 && Weeks.NumOfWeeksInYear(year) > 52) return Weeks.NumOfWeeksInYear(year) - 39;
+            return 13;
+        }
 
         public static DbUpdates AddNewPeriods()
         {
@@ -82,6 +91,13 @@ namespace GalamForecast.Models
                 else return new DbUpdates("AddNewPeriods", "Done", 0, 0);
             }
             catch { return new DbUpdates("AddNewPeriods", "Error", 0, 0); }
+        }
+
+        public static List<Periods> GetPeriods(int year = 0)
+        {
+            List<Periods> result = DBServices.GetAllPeriods(year == 0 ? Weeks.CurrentYear() : year);
+            if (result.Count == 0) throw new Exception("NotFound");
+            return DBServices.GetAllPeriods(year == 0 ? Weeks.CurrentYear() : year);
         }
     }
 }

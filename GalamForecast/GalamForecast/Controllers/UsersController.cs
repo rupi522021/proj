@@ -51,21 +51,6 @@ namespace GalamForecast.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("api/numOfApprovals/")]
-        public IHttpActionResult numOfApprovalsGet()
-        {
-            //Users user;
-            //try { user = Users.Authentication(Request); }
-            //catch (Exception ex) { return Content(Results.AuthenticationExResult(ex).Status, Results.AuthenticationExResult(ex).ReturnedObj); }
-
-            //if (!(user.Permissions.Contains(3)|| user.Permissions.Contains(4)|| user.IsSaleMenager)) return Content(HttpStatusCode.Forbidden, new { Code = "Forbidden", Message = "אין הרשאות" });
-
-            //Add
-
-            return Content(HttpStatusCode.OK, new { Code = "OK", Message = "נשלחה תשובה", NumOfApprovals = 1 });
-        }
-
         public IHttpActionResult Get()
         {
             Users user;

@@ -115,8 +115,8 @@ export default class EndCustomers extends Component {
           columns={this.columns}
           divClass="heightWithTwoMenu"
         />
-        {this.state.modalToShow == "AddShipToMod" ? <AddShipToMod saveF={this.addShipToSave} cancelX={this.hideModal} AllCountries={this.state.allCountries} logedInUser={this.props.logedInUser} /> : ""}
-        {/* AddShipToMod */}
+        {this.state.modalToShow == "AddShipToMod" ?
+         <AddShipToMod saveF={this.addShipToSave} cancelX={this.hideModal} AllCountries={this.state.allCountries} logedInUser={this.props.logedInUser} /> : ""}
       </div>
     )
   }

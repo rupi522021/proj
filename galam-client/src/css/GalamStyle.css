@@ -258,6 +258,7 @@ img {
   padding: 20px;
   overflow: auto;
   /* width: 100%; */
+  width: calc(100% - 40px);
   text-align: center;
   /* height:71vh; */
 }
@@ -471,4 +472,75 @@ label.marRightCh {
 
 .MuiPickersBasePicker-container {
   direction: ltr;
+}
+
+.invDiv {
+  height: 77vh;
+  direction: ltr;
+  display: flex;
+}
+
+.divFM {
+  width: 40%;
+  padding: 20px;
+  overflow: auto;
+}
+
+.menuTb {
+  margin-top: 20px;
+}
+
+.menuTb th {
+  background-color: rgb(146, 208, 80);
+  min-width: 55px;
+}
+
+.tdHRow {
+  background-color: rgba(0, 0, 0, 0.15);
+  /*background-color: rgb(255,218,101);*/
+  width: 150px;
+}
+
+.menuTb .MuiOutlinedInput-input {
+  padding: 5px 4px;
+}
+
+.green {
+  color: green;
+}
+
+button.simulationButton {
+  width: 250px;
+}
+
+.greyBg {
+  background-color: rgba(0, 0, 0, 0.15);
+  margin: -1px -2px;
+  padding: 1px 2px;
+}
+
+.invMinus {
+  color: red;
+  font-weight: bold;
+}
+
+.bigTbS {
+  width: 50%;
+  margin-top: 3vh;
+}
+
+.bigTbS tr {
+  height: 3em;
+}
+
+tbody.tbodySpanTxtSize>tr>td>span {
+  font-size: 0.8em;
+}
+
+.tdHRowT {
+  background-color: rgb(146,208,80);
+}
+
+.TRow {
+  border-top: 3px solid black;
 }
