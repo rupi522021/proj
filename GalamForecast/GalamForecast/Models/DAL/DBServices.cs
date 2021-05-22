@@ -1207,32 +1207,36 @@ namespace GalamForecast.Models.DAL
                 List<StatisticalForecastRow> result = new List<StatisticalForecastRow>();
                 while (dr.Read())
                 {
+                    double q1F = dr["Q1F"] != DBNull.Value ? Convert.ToDouble(dr["Q1F"]) : 0;
+                    double q2F = dr["Q2F"] != DBNull.Value ? Convert.ToDouble(dr["Q2F"]) : 0;
+                    double q3F = dr["Q3F"] != DBNull.Value ? Convert.ToDouble(dr["Q3F"]) : 0;
+                    double q4F = dr["Q4F"] != DBNull.Value ? Convert.ToDouble(dr["Q4F"]) : 0;
+                    double q11 = dr["Q11"] != DBNull.Value ? Convert.ToDouble(dr["Q11"]) : 0;
+                    double q21 = dr["Q21"] != DBNull.Value ? Convert.ToDouble(dr["Q21"]) : 0;
+                    double q31 = dr["Q31"] != DBNull.Value ? Convert.ToDouble(dr["Q31"]) : 0;
+                    double q41 = dr["Q41"] != DBNull.Value ? Convert.ToDouble(dr["Q41"]) : 0;
+                    double q12 = dr["Q12"] != DBNull.Value ? Convert.ToDouble(dr["Q12"]) : 0;
+                    double q22 = dr["Q22"] != DBNull.Value ? Convert.ToDouble(dr["Q22"]) : 0;
+                    double q32 = dr["Q32"] != DBNull.Value ? Convert.ToDouble(dr["Q32"]) : 0;
+                    double q42 = dr["Q42"] != DBNull.Value ? Convert.ToDouble(dr["Q42"]) : 0;
+                    double q13 = dr["Q13"] != DBNull.Value ? Convert.ToDouble(dr["Q13"]) : 0;
+                    double q23 = dr["Q23"] != DBNull.Value ? Convert.ToDouble(dr["Q23"]) : 0;
+                    double q33 = dr["Q33"] != DBNull.Value ? Convert.ToDouble(dr["Q33"]) : 0;
+                    double q43 = dr["Q43"] != DBNull.Value ? Convert.ToDouble(dr["Q43"]) : 0;
+                    double q14 = dr["Q14"] != DBNull.Value ? Convert.ToDouble(dr["Q14"]) : 0;
+                    double q24 = dr["Q24"] != DBNull.Value ? Convert.ToDouble(dr["Q24"]) : 0;
+                    double q34 = dr["Q34"] != DBNull.Value ? Convert.ToDouble(dr["Q34"]) : 0;
+                    double q44 = dr["Q44"] != DBNull.Value ? Convert.ToDouble(dr["Q44"]) : 0;
                     result.Add(new StatisticalForecastRow(
                         Convert.ToInt32(dr["yearP"]),
                         Convert.ToInt32(dr["customerNumber"]),
                         Convert.ToString(dr["productFamilyName"]),
                         Convert.ToString(dr["customerName"]),
                         Convert.ToString(dr["personFullName"]),
-                        dr["Q1F"] != DBNull.Value ? Convert.ToDouble(dr["Q1F"]) : 0,
-                        dr["Q2F"] != DBNull.Value ? Convert.ToDouble(dr["Q2F"]) : 0,
-                        dr["Q3F"] != DBNull.Value ? Convert.ToDouble(dr["Q3F"]) : 0,
-                        dr["Q4F"] != DBNull.Value ? Convert.ToDouble(dr["Q4F"]) : 0,
-                        dr["Q11"] != DBNull.Value ? Convert.ToDouble(dr["Q11"]) : 0,
-                        dr["Q21"] != DBNull.Value ? Convert.ToDouble(dr["Q21"]) : 0,
-                        dr["Q31"] != DBNull.Value ? Convert.ToDouble(dr["Q31"]) : 0,
-                        dr["Q41"] != DBNull.Value ? Convert.ToDouble(dr["Q41"]) : 0,
-                        dr["Q12"] != DBNull.Value ? Convert.ToDouble(dr["Q12"]) : 0,
-                        dr["Q22"] != DBNull.Value ? Convert.ToDouble(dr["Q22"]) : 0,
-                        dr["Q32"] != DBNull.Value ? Convert.ToDouble(dr["Q32"]) : 0,
-                        dr["Q42"] != DBNull.Value ? Convert.ToDouble(dr["Q42"]) : 0,
-                        dr["Q13"] != DBNull.Value ? Convert.ToDouble(dr["Q13"]) : 0,
-                        dr["Q23"] != DBNull.Value ? Convert.ToDouble(dr["Q23"]) : 0,
-                        dr["Q33"] != DBNull.Value ? Convert.ToDouble(dr["Q33"]) : 0,
-                        dr["Q43"] != DBNull.Value ? Convert.ToDouble(dr["Q43"]) : 0,
-                        dr["Q14"] != DBNull.Value ? Convert.ToDouble(dr["Q14"]) : 0,
-                        dr["Q24"] != DBNull.Value ? Convert.ToDouble(dr["Q24"]) : 0,
-                        dr["Q34"] != DBNull.Value ? Convert.ToDouble(dr["Q34"]) : 0,
-                        dr["Q44"] != DBNull.Value ? Convert.ToDouble(dr["Q44"]) : 0
+                        new double[4, 5]{ { q1F, q11, q12, q13, q14 },
+                            { q2F, q21, q22, q23, q24 },
+                            { q3F, q31, q32, q33, q34 },
+                            { q4F, q41, q42, q43, q44 } }
                         ));
                 }
                 dr.Close();

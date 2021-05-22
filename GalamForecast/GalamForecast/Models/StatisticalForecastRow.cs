@@ -1,18 +1,59 @@
 ﻿using GalamForecast.Models.DAL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 
 namespace GalamForecast.Models
 {
     public class StatisticalForecastRow
     {
+        public static int rank0; //6
+        public static int rank1; //8
+        public static int rank2; //10
+        public static int rank3; //12
+        public static double[,] CF; //Coefficient Matrix //1-4
+
+        static StatisticalForecastRow()
+        {
+            try
+            {
+                var fileSavePath = Path.Combine(HostingEnvironment.MapPath("~/ConstFiles"), "consts.txt");
+                string[] readText = File.ReadAllLines(fileSavePath);
+                rank0 = Convert.ToInt32(readText[6]);
+                rank1 = Convert.ToInt32(readText[8]);
+                rank2 = Convert.ToInt32(readText[10]);
+                rank3 = Convert.ToInt32(readText[12]);
+                CF = new double[4, 9];
+                for (int i = 1; i <= 4; i++)
+                {
+                    string[] tmp = readText[i].Split(' ');
+                    for (int j = 0; j < 9; j++)
+                    {
+                        try { CF[i - 1, j] = Convert.ToDouble(tmp[j].Replace(",", ".")); }
+                        catch { CF[i - 1, j] = Convert.ToDouble(tmp[j].Replace(".", ",")); }
+                    }
+                }
+            }
+            catch
+            {
+                rank0 = 0;
+                rank1 = 200;
+                rank2 = 400;
+                rank3 = 800;
+                CF = new double[4, 9]{ { 0.05, 0, 0.31, 0.2, 0.2, 0.17, 0, 0, 0 },
+                    { 0.51, 0.17, 0, -0.08, -0.02, 0.16, 0.21, 0.11, 0 },
+                    { 0.79, 0, -0.14, 0, 0, 0.12, 0.27, 0, 0 },
+                    { 0.46, 0.15, 0.21, 0, 0, 0.02, 0.22, 0, 0 }
+                };
+            }
+        }
+
         public StatisticalForecastRow() { }
 
-        public StatisticalForecastRow(int year, int customerNumber, string productFamilyName, string customerName, string personFullName,
-            double q1F, double q2F, double q3F, double q4F, double q11, double q21, double q31, double q41, double q12, double q22,
-            double q32, double q42, double q13, double q23, double q33, double q43, double q14, double q24, double q34, double q44)
+        public StatisticalForecastRow(int year, int customerNumber, string productFamilyName, string customerName, string personFullName, double[,] val)
         {
             Year = year;
             CustomerNumber = customerNumber;
@@ -20,15 +61,15 @@ namespace GalamForecast.Models
             CustomerName = customerName;
             PersonFullName = personFullName;
 
-            double avg1 = Math.Round((q11 + q21 + q31 + q41) / 4, 3);
-            double avg2 = Math.Round((q12 + q22 + q32 + q42) / 4, 3);
-            double avg3 = Math.Round((q13 + q23 + q33 + q43) / 4, 3);
-            double avg4 = Math.Round((q14 + q24 + q34 + q44) / 4, 3);
+            double avg1 = Math.Round((val[0, 1] + val[1, 1] + val[2, 1] + val[3, 1]) / 4, 3);
+            double avg2 = Math.Round((val[0, 2] + val[1, 2] + val[2, 2] + val[3, 2]) / 4, 3);
+            double avg3 = Math.Round((val[0, 3] + val[1, 3] + val[2, 3] + val[3, 3]) / 4, 3);
+            double avg4 = Math.Round((val[0, 4] + val[1, 4] + val[2, 4] + val[3, 4]) / 4, 3);
 
-            Val = new double[4, 9]{ { q1F, q11, q12, q13, q14, avg1, avg2, avg3, avg4 },
-                { q2F, q21, q22, q23, q24,  avg1, avg2, avg3, avg4 },
-                { q3F, q31, q32, q33, q34,  avg1, avg2, avg3, avg4 },
-                { q4F, q41, q42, q43, q44,  avg1, avg2, avg3, avg4 }
+            Val = new double[4, 9]{ { val[0, 0], val[0, 1], val[0, 2], val[0, 3], val[0, 4], avg1, avg2, avg3, avg4 },
+                { val[1, 0], val[1, 1], val[1, 2], val[1, 3], val[1, 4],  avg1, avg2, avg3, avg4 },
+                { val[2, 0], val[2, 1], val[2, 2], val[2, 3], val[2, 4],  avg1, avg2, avg3, avg4 },
+                { val[3, 0], val[3, 1], val[3, 2], val[3, 3], val[3, 4],  avg1, avg2, avg3, avg4 }
             };
         }
 
@@ -44,11 +85,6 @@ namespace GalamForecast.Models
         public double Total => Math.Round(Q1 + Q2 + Q3 + Q4, 1);
         public string StringKey => $"{ProductFamilyName}|{Year}|{CustomerNumber}";
         private double[,] Val;  //Values Matrix
-        private double[,] CF = { { 0.05, 0, 0.31, 0.2, 0.2, 0.17, 0, 0, 0 },
-                { 0.51, 0.17, 0, -0.08, -0.02, 0.16, 0.21, 0.11, 0 },
-                { 0.79, 0, -0.14, 0, 0, 0.12, 0.27, 0, 0 },
-                { 0.46, 0.15, 0.21, 0, 0, 0.02, 0.22, 0, 0 }
-            };  //Coefficient Matrix
 
         public static int RCF(double num) //4 Coefficient Matrix Row
         {
