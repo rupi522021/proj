@@ -88,9 +88,9 @@ namespace GalamForecast.Models
 
         public static int RCF(double num) //4 Coefficient Matrix Row
         {
-            if (num > 0 && num <= 200) return 1;
-            if (num > 200 && num <= 400) return 2;
-            if (num > 400 && num <= 800) return 3;
+            if (num > rank0 && num <= rank1) return 1;
+            if (num > rank1 && num <= rank2) return 2;
+            if (num > rank2 && num <= rank3) return 3;
             return 4;
         }
 
